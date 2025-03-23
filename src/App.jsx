@@ -11,7 +11,7 @@ export default function () {
         emoji: "🍕"
     }])
 
-    console.log(cart)
+    const [modelOpen, setModelOpen] = React.useState(false)
 
     function handleClick(selectedItem) {
         setCart(prevCart => [...prevCart, selectedItem])
@@ -21,6 +21,16 @@ export default function () {
         setCart(prevCart => prevCart.filter(item => item.id !== id))
     }
 
+    function toggleModalState() {
+        setModelOpen(prevState => !prevState)
+    }
+
+    function handleFormSubmit(formData) {
+        const { name, cardNumber, cvv } = Object.fromEntries(formData)
+        console.log({ name, cardNumber, cvv })
+        toggleModalState()
+
+    }
     const menuElements = menuArray.map(menuItem => {
         return (
             <section
@@ -81,11 +91,48 @@ export default function () {
                         <p className="text-[20px]">${totalPrice}</p>
                     </div>
 
-                    <button className="bg-[#16DB99] font-verdana text-[16px] font-black text-white w-full py-[18px] my-[53px] cursor-pointer rounded-md">Complete order</button>
+                    <button
+                        className="bg-[#16DB99] font-verdana text-[16px] font-black text-white w-full py-[18px] my-[53px] cursor-pointer rounded-md"
+                        onClick={toggleModalState}
+                    >Complete order</button>
 
                 </footer>
             }
 
+            {modelOpen && <div>
+                <form
+                    action={handleFormSubmit}
+                    className="fixed top-0 left-0 right-0 bottom-0 m-auto w-[504px] h-[542.24px] bg-white shadow-xl flex flex-col justify-center items-center gap-8 font-verdan p-[24px]"
+                >
+                    <h2 className="font-black text-[24px]">Enter card details</h2>
+                    <input
+                        className="border-2 border-gray-300 py-4 px-4 w-full focus:text-2xl focus:bg-amber-100 hover:border-rose-300 hover:border-4"
+                        type="text"
+                        placeholder="Enter your name"
+                        aria-label='Type your name here'
+                        name="name"
+                        required />
+                    <input
+                        className="border-2 border-gray-300 p-4 px-4 w-full focus:text-2xl focus:bg-amber-100 hover:border-rose-300 hover:border-4"
+                        type="number"
+                        placeholder="Enter card number"
+                        aria-label='Type your card number here'
+                        name="cardNumber"
+                        required />
+                    <input
+                        className="border-2 border-gray-300 p-4 px-4 w-full focus:text-2xl focus:bg-amber-100 hover:border-rose-300 hover:border-4"
+                        type="number"
+                        placeholder="Enter CVV"
+                        aria-label='Type your CVV here'
+                        name="cvv"
+                        required />
+
+                    <button type="submit"
+                        className="bg-[#16DB99] font-verdana text-[16px] font-black text-white w-full py-[18px] cursor-pointer rounded-md">
+                        Pay
+                    </button>
+                </form>
+            </div>}
         </div>
     )
 }
