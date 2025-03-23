@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Smythe&display=swap");
+
+@theme {
+  --font-smythe: "Smythe", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
