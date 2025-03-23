@@ -1,7 +1,6 @@
 import { nanoid } from 'nanoid'
 
 export default function (props) {
-
     const cartElements = props.cart.map(cartItem => {
         return (
             <div

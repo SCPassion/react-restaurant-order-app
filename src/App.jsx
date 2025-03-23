@@ -35,6 +35,7 @@ export default function () {
         return (
             <MenuItem
                 key={menuItem.id}
+                id={menuItem.id}
                 emoji={menuItem.emoji}
                 name={menuItem.name}
                 ingredients={menuItem.ingredients}
