@@ -1,10 +1,8 @@
-import { nanoid } from 'nanoid'
-
 export default function (props) {
     const cartElements = props.cart.map(cartItem => {
         return (
             <div
-                key={nanoid()}
+                key={cartItem.id}
                 className="flex justify-center w-full gap-4  mb-[22px]"
             >
                 <p className="text-[28px]">{cartItem.name}</p>

@@ -3,6 +3,7 @@ import { menuArray } from './data.js';
 import MenuItem from './components/MenuItem.jsx'
 import CartFooter from './components/CartFooter.jsx'
 import Modal from './components/Modal.jsx'
+import { nanoid } from 'nanoid'
 
 export default function () {
     // State
@@ -32,10 +33,11 @@ export default function () {
 
     // React elements
     const menuElements = menuArray.map(menuItem => {
+        const id = nanoid()
         return (
             <MenuItem
-                key={menuItem.id}
-                id={menuItem.id}
+                key={id}
+                id={id}
                 emoji={menuItem.emoji}
                 name={menuItem.name}
                 ingredients={menuItem.ingredients}
