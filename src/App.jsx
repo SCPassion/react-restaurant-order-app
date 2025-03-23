@@ -1,6 +1,7 @@
 import React from 'react';
 import { menuArray } from './data.js';
 import { nanoid } from 'nanoid'
+import MenuItem from './components/MenuItem.jsx'
 
 export default function () {
     // State
@@ -34,23 +35,14 @@ export default function () {
     // React elements
     const menuElements = menuArray.map(menuItem => {
         return (
-            <section
+            <MenuItem
                 key={menuItem.id}
-                className="flex justify-center border-b-2 border-b-gray-300 items-center py-[51px] first:pt-[67px]"
-            >
-                <p className="w-1/4 text-[78.72px]">{menuItem.emoji}</p>
-                <div className="grow flex flex-col gap-1">
-                    <h2 className="text-[28px]">{menuItem.name}</h2>
-                    <p className="text-gray-400 text-[16px]">{menuItem.ingredients.join(", ")}</p>
-                    <p className="text-[20px]">${menuItem.price}</p>
-                </div>
-                <div className="border-2 border-gray-300 text-black opacity-50 hover:opacity-100 rounded-full flex items-center justify-center w-[48px] h-[48px]">
-                    <button
-                        className="text-[32px] cursor-pointer"
-                        onClick={(() => handleClick(menuItem))}
-                    >+</button>
-                </div>
-            </section>
+                emoji={menuItem.emoji}
+                name={menuItem.name}
+                ingredients={menuItem.ingredients}
+                price={menuItem.price}
+                handleClick={handleClick}
+            />
         )
     })
 
