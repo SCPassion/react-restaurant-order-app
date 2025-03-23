@@ -11,8 +11,14 @@ export default function () {
         emoji: "🍕"
     }])
 
+    console.log(cart)
+
     function handleClick(selectedItem) {
         setCart(prevCart => [...prevCart, selectedItem])
+    }
+
+    function handleRemoveOrder(id) {
+        setCart(prevCart => prevCart.filter(item => item.id !== id))
     }
 
     const menuElements = menuArray.map(menuItem => {
@@ -44,7 +50,10 @@ export default function () {
                 className="flex justify-center w-full gap-4  mb-[22px]"
             >
                 <p className="text-[28px]">{cartItem.name}</p>
-                <button className="text-[12px] text-gray-400 font-verdana">remove</button>
+                <button
+                    className="text-[12px] text-gray-400 font-verdana cursor-pointer"
+                    onClick={() => handleRemoveOrder(cartItem.id)}
+                >remove</button>
                 <p className="ml-auto text-[20px]">${cartItem.price}</p>
             </div>
         )
