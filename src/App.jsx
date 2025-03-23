@@ -62,9 +62,11 @@ export default function () {
             >
                 <p className="text-[28px]">{cartItem.name}</p>
                 <button
-                    className="text-[12px] text-gray-400 font-verdana cursor-pointer"
+                    className="text-[12px] text-gray-400 font-verdana cursor-pointer hover:text-red-500 hover:text-[16px]"
                     onClick={() => handleRemoveOrder(cartItem.id)}
-                >remove</button>
+                >
+                    remove
+                </button>
                 <p className="ml-auto text-[20px]">${cartItem.price}</p>
             </div>
         )
@@ -91,7 +93,7 @@ export default function () {
                     </div>
 
                     <button
-                        className="bg-[#16DB99] font-verdana text-[16px] font-black text-white w-full py-[18px] my-[53px] cursor-pointer rounded-md hover:bg-green-800 transition-all duration-300 hover:scale-105 hover:text-[24px]"
+                        className="bg-[#16DB99] font-verdana text-[16px] font-black text-white w-full py-[18px] my-[53px] cursor-pointer rounded-md hover:bg-green-800 transition-all duration-300 hover:scale-105 hover:text-[24px] hover:shadow-3xl"
                         onClick={toggleModalState}
                     >Complete order</button>
 
