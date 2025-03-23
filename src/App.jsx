@@ -3,16 +3,15 @@ import { menuArray } from './data.js';
 import { nanoid } from 'nanoid'
 
 export default function () {
-    const [cart, setCart] = React.useState([{
-        name: "Pizza",
-        ingredients: ["pepperoni", "mushrom", "mozarella"],
-        id: 0,
-        price: 14,
-        emoji: "🍕"
-    }])
-
+    // State
+    const [cart, setCart] = React.useState([])
     const [modelOpen, setModelOpen] = React.useState(false)
+    const [paymentDetails, setPaymentDetails] = React.useState(null)
 
+    // Calculations
+    const totalPrice = cart.reduce((total, item) => total + item.price, 0)
+
+    // callback functions
     function handleClick(selectedItem) {
         setCart(prevCart => [...prevCart, selectedItem])
     }
@@ -26,11 +25,13 @@ export default function () {
     }
 
     function handleFormSubmit(formData) {
-        const { name, cardNumber, cvv } = Object.fromEntries(formData)
-        console.log({ name, cardNumber, cvv })
+        const paymentDetail = Object.fromEntries(formData)
+        setCart([])
         toggleModalState()
-
+        setPaymentDetails(paymentDetail)
     }
+
+    // React elements
     const menuElements = menuArray.map(menuItem => {
         return (
             <section
@@ -69,8 +70,6 @@ export default function () {
         )
     })
 
-    const totalPrice = cart.reduce((total, item) => total + item.price, 0)
-
     return (
         <div className="font-smythe w-[600px] flex flex-col mx-auto mt-4">
             <header className="p-11 bg-[url(./assets/burgerMain.jpeg)] bg-center bg-cover bg-no-repeat text-white">
@@ -82,7 +81,7 @@ export default function () {
                 {menuElements}
             </main>
 
-            {cart.length > 0 &&
+            {(cart.length > 0 && paymentDetails === null) &&
                 <footer className="px-[46px] flex flex-col items-center">
                     <h2 className="text-[28px] mt-[45px] mb-[64px]">Your order</h2>
                     {cartElements}
@@ -92,10 +91,16 @@ export default function () {
                     </div>
 
                     <button
-                        className="bg-[#16DB99] font-verdana text-[16px] font-black text-white w-full py-[18px] my-[53px] cursor-pointer rounded-md"
+                        className="bg-[#16DB99] font-verdana text-[16px] font-black text-white w-full py-[18px] my-[53px] cursor-pointer rounded-md hover:bg-green-800 transition-all duration-300 hover:scale-105 hover:text-[24px]"
                         onClick={toggleModalState}
                     >Complete order</button>
 
+                </footer>
+            }
+
+            {paymentDetails !== null &&
+                <footer className="text-[#065F46] bg-[#ECFDF5] w-[504px] h-[120px] flex flex-col justify-center items-center mx-auto my-[31px]">
+                    <h2 className="text-[28px] py-4 px-8 text-center">Thanks, {paymentDetails.name}! Your order is on its way!</h2>
                 </footer>
             }
 
@@ -128,7 +133,7 @@ export default function () {
                         required />
 
                     <button type="submit"
-                        className="bg-[#16DB99] font-verdana text-[16px] font-black text-white w-full py-[18px] cursor-pointer rounded-md">
+                        className="bg-[#16DB99] font-verdana text-[16px] font-black text-white w-full py-[18px] cursor-pointer rounded-md hover:bg-green-800 transition-all duration-300 hover:scale-105 hover:text-[24px]">
                         Pay
                     </button>
                 </form>
